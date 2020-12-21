@@ -1,16 +1,19 @@
 package server
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-mongo-starter/src/users"
 )
 
-func HandleAddUser(ctx *gin.Context){
-	ctx.Params.
-	fmt.Println(ctx.GetRawData())
+type FOO struct {
+	Name string `json:"url" binding:"required"`
 }
 
-func HandleHelloWorld(ctx *gin.Context){
+func HandleAddUser(ctx *gin.Context) {
+	ctx.JSON(200, ctx.PostForm("test"))
+}
+
+func HandleHelloWorld(ctx *gin.Context) {
 	users.HelloWorld()
+
 }

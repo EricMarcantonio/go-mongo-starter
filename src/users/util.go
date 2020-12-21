@@ -6,14 +6,13 @@ import (
 )
 
 type User struct {
-	Name	string	`bson:"name,omitempty"`
+	Name string `bson:"name,omitempty"`
 }
 
 var (
 	UserCollection *mongo.Collection
 )
 
-func HelloWorld(resp string){
+func HelloWorld() {
 	log.Println("Hello from go-mongo-starter!")
 }
-
