@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"go-mongo-starter/src/users"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type FOO struct {
@@ -10,10 +11,28 @@ type FOO struct {
 }
 
 func HandleAddUser(ctx *gin.Context) {
-	ctx.JSON(200, ctx.PostForm("test"))
+	user := users.User{Name: ctx.PostForm("name")}
+	if result, err := users.AddUser(user); err != nil {
+		ctx.JSON(500, err)
+	} else {
+		ctx.JSON(200, result.InsertedID)
+	}
 }
 
-func HandleHelloWorld(ctx *gin.Context) {
-	users.HelloWorld()
+func HandleUpdateUser(ctx *gin.Context) (*mongo.UpdateResult, error) {
+	oldUser := users.User{Name: ctx.PostForm("oldName")}
+	newUser := users.User{Name: ctx.PostForm("newName")}
+	if _, err := users.UpdateUserByName(oldUser, newUser); err != nil {
+		ctx.JSON(500, err)
+	} else {
+		ctx.JSON(200, "OK")
+	}
+}
+
+func HandleGetUser(ctx *gin.Context) {
+	users.GetUser(ctx.GetString("name"))
+}
+
+func HandleDeleteUser(ctx *gin.Context) {
 
 }
