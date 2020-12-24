@@ -7,8 +7,8 @@ import (
 func StartServer() {
 	router := gin.Default()
 	router.POST("/user", HandleAddUser)
-	router.GET("/user", HandleHelloWorld)
-	router.DELETE("/user")
-	router.PUT("/user")
+	router.GET("/user", HandleGetUser)
+	router.DELETE("/user", HandleDeleteUser)
 	_ = router.Run()
+
 }

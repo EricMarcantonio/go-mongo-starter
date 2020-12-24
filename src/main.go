@@ -10,10 +10,9 @@ import (
 	"time"
 )
 
-
 func main() {
 	//connect to the locally running mongo instance
-	client, ctx := Connect()
+	client, ctx := connect()
 	//close the connection when you are finished with it
 	defer client.Disconnect(ctx)
 
@@ -23,7 +22,7 @@ func main() {
 	server.StartServer()
 }
 
-func Connect() (*mongo.Client, context.Context){
+func connect() (*mongo.Client, context.Context) {
 	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
 	CheckErr(err)
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
